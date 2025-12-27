@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Slap</title>
+    <link rel="icon" href="/images/Book.ico">
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <nav id="top">
+        <h2>Book Slap</h2>
+        <p>-You Can Find All Types Of Book Information</p>
+    </nav>
+    <div class="search">
+        <form action="/" method="post">
+            <input type="text" name="query" value="<%= query %>" placeholder="Enter A Book Name">
+            <select name="category" class="filter">
+                <option value="">Select Category</option>
+                <option value="programming">Programming</option>
+                <option value="computer_science">Computer Science</option>
+                <option value="artificial_intelligence">Artificial Intelligence</option>
+                <option value="web_development">Web Development</option>
+                <option value="science">Science</option>
+                <option value="data_science">Data Science</option>
+                <option value="biology">Biology</option>
+                <option value="physics">Physics</option>
+                <option value="psychology">Psychology</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="science_fiction">Science Fiction</option>
+                <option value="romance">Romance</option>
+                <option value="mystery">Mystery</option>
+                <option value="horror">Horror</option>
+                <option value="self_help">Self Help</option>
+                <option value="philosophy">Philosophy</option>
+                <option value="history">History</option>
+                <option value="biography">Biography</option>
+                <option value="business">Business</option>
+                <option value="education">Education</option>
+            </select>
+            <button type="submit"> Submit </button>
+        </form>
+    </div>
+    
+    <div class="book-container">
+        <% if (books) { %>
+            <% books.forEach(book => { %>
+            <div class="book-card">
+                <% if (book.cover_i) {%>
+                    <img src="https://covers.openlibrary.org/b/id/<%= book.cover_i %>-L.jpg">
+                <%} else if (book.cover_id){ %>
+                    <img src="https://covers.openlibrary.org/b/id/<%= book.cover_id %>-L.jpg">
+                <%} else {%>
+                    <img src="https://via.placeholder.com/150x200?text=No+Cover">
+                <%}%>
+                <div class="card-body">
+                    <h3 class="book-title"><%= book.title %></h3>
+                    <p>Author : <br><%= book.author_name ? book.author_name[0] : (book.authors ? book.authors[0].name : "Unknown")  %></p>
+        
+                    <p>First Published:<%= book.first_publish_year ? book.first_publish_year : (book.publish_year ? book.publish_year[0] : "N/A") %></p>
+
+                    <p>Category:<%= book.subject ? book.subject[0] : (book.subjects ? book.subjects[0] : "N/A") %></p>
+                </div>
+            </div>
+            <% })%>
+        <% } %>
+        <% if (books.length === 0) { %>
+            <div  class="start">
+                <h3>No Books Found. Try To Search Or Choose Category</h3>
+            </div>
+        <% } %>
+    </div>
+    <a href="#top">Back To Top</a>
+    </body>
+</html>
